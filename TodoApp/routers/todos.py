@@ -42,7 +42,6 @@ def redirect_to_login():
 async def render_todo_page(request: Request, db: db_dependency):
     try:
         user = await get_current_user(request.cookies.get('access_token'))
-        print("USer: ", user)
         if user is None:
             return redirect_to_login()
         todos = db.query(Todos).filter(Todos.owner_id == user.get('id')).all()
